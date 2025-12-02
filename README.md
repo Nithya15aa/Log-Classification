@@ -69,13 +69,19 @@ Start the FastAPI server:
 bash run_api.sh
 ```
 
-The API will be available at `http://127.0.0.1:8000`
+or manually:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+The API will be available at `http://127.0.0.1:8000/docs`
 
 #### API Endpoints
 
 **Classify a single log:**
 ```bash
-curl -X POST "http://127.0.0.1:8000/classify" \
+curl -X POST "http://127.0.0.1:8000/v1/logs/analyze" \
   -H "Content-Type: application/json" \
   -d '{"log": "ERROR [2024-01-01 10:00:00] Database connection failed"}'
 ```
@@ -92,7 +98,7 @@ Response:
 
 **Batch process CSV file:**
 ```bash
-curl -X POST "http://127.0.0.1:8000/classify_csv" \
+curl -X POST "http://127.0.0.1:8000/v1/logs/analyze/batch" \
   -F "file=@logs.csv" \
   -F "log_column=message"
 ```
